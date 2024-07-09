@@ -7,23 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6861FD752C3BE4C0009040AB /* BasicDrawingGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6861FD742C3BE4C0009040AB /* BasicDrawingGestureRecognizer.swift */; };
 		68F487892C368C2A0084A7EC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F487882C368C2A0084A7EC /* AppDelegate.swift */; };
-		68F4878B2C368C2A0084A7EC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F4878A2C368C2A0084A7EC /* SceneDelegate.swift */; };
 		68F4878D2C368C2A0084A7EC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F4878C2C368C2A0084A7EC /* ViewController.swift */; };
-		68F487902C368C2A0084A7EC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68F4878E2C368C2A0084A7EC /* Main.storyboard */; };
 		68F487922C368C2C0084A7EC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68F487912C368C2C0084A7EC /* Assets.xcassets */; };
 		68F487952C368C2C0084A7EC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68F487932C368C2C0084A7EC /* LaunchScreen.storyboard */; };
+		68F4879E2C368D670084A7EC /* DrawingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F4879D2C368D670084A7EC /* DrawingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6861FD742C3BE4C0009040AB /* BasicDrawingGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicDrawingGestureRecognizer.swift; sourceTree = "<group>"; };
 		68F487852C368C2A0084A7EC /* freehand-drawing-app-sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "freehand-drawing-app-sample.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		68F487882C368C2A0084A7EC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		68F4878A2C368C2A0084A7EC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		68F4878C2C368C2A0084A7EC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		68F4878F2C368C2A0084A7EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		68F487912C368C2C0084A7EC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		68F487942C368C2C0084A7EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		68F487962C368C2C0084A7EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		68F4879D2C368D670084A7EC /* DrawingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +37,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		681703A02C3D1A1500E7C43A /* GestureRecognizer */ = {
+			isa = PBXGroup;
+			children = (
+				6861FD742C3BE4C0009040AB /* BasicDrawingGestureRecognizer.swift */,
+			);
+			path = GestureRecognizer;
+			sourceTree = "<group>";
+		};
 		68F4877C2C368C2A0084A7EC = {
 			isa = PBXGroup;
 			children = (
@@ -56,15 +64,23 @@
 		68F487872C368C2A0084A7EC /* freehand-drawing-app-sample */ = {
 			isa = PBXGroup;
 			children = (
+				68F4879C2C368D3C0084A7EC /* DrawingApp */,
 				68F487882C368C2A0084A7EC /* AppDelegate.swift */,
-				68F4878A2C368C2A0084A7EC /* SceneDelegate.swift */,
 				68F4878C2C368C2A0084A7EC /* ViewController.swift */,
-				68F4878E2C368C2A0084A7EC /* Main.storyboard */,
 				68F487912C368C2C0084A7EC /* Assets.xcassets */,
 				68F487932C368C2C0084A7EC /* LaunchScreen.storyboard */,
 				68F487962C368C2C0084A7EC /* Info.plist */,
 			);
 			path = "freehand-drawing-app-sample";
+			sourceTree = "<group>";
+		};
+		68F4879C2C368D3C0084A7EC /* DrawingApp */ = {
+			isa = PBXGroup;
+			children = (
+				681703A02C3D1A1500E7C43A /* GestureRecognizer */,
+				68F4879D2C368D670084A7EC /* DrawingView.swift */,
+			);
+			path = DrawingApp;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -127,7 +143,6 @@
 			files = (
 				68F487952C368C2C0084A7EC /* LaunchScreen.storyboard in Resources */,
 				68F487922C368C2C0084A7EC /* Assets.xcassets in Resources */,
-				68F487902C368C2A0084A7EC /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,21 +155,14 @@
 			files = (
 				68F4878D2C368C2A0084A7EC /* ViewController.swift in Sources */,
 				68F487892C368C2A0084A7EC /* AppDelegate.swift in Sources */,
-				68F4878B2C368C2A0084A7EC /* SceneDelegate.swift in Sources */,
+				6861FD752C3BE4C0009040AB /* BasicDrawingGestureRecognizer.swift in Sources */,
+				68F4879E2C368D670084A7EC /* DrawingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		68F4878E2C368C2A0084A7EC /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				68F4878F2C368C2A0084A7EC /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		68F487932C368C2C0084A7EC /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -297,7 +305,7 @@
 				INFOPLIST_FILE = "freehand-drawing-app-sample/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -325,7 +333,7 @@
 				INFOPLIST_FILE = "freehand-drawing-app-sample/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
