@@ -12,7 +12,7 @@ import UIKit
  */
 class BasicDrawingGestureRecognizer: UIGestureRecognizer {
     
-    private let bezierPath = UIBezierPath()
+    private var path = CGMutablePath()
     
     // will be triggered when first touch is received
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent) {
@@ -21,7 +21,7 @@ class BasicDrawingGestureRecognizer: UIGestureRecognizer {
             return
         }
         
-        bezierPath.move(to: point)
+        path.move(to: point)
         
     }
     
@@ -32,8 +32,8 @@ class BasicDrawingGestureRecognizer: UIGestureRecognizer {
             return
         }
         
-        bezierPath.addLine(to: point)
-        drawingView.drawingPath = bezierPath.cgPath
+        path.addLine(to: point)
+        drawingView.drawingPath = path
         drawingView.setNeedsDisplay()
     }
     
@@ -44,7 +44,7 @@ class BasicDrawingGestureRecognizer: UIGestureRecognizer {
             return
         }
         
-        bezierPath.addLine(to: point)
+        path.addLine(to: point)
         drawingView.setNeedsDisplay()
     }
     
@@ -55,7 +55,7 @@ class BasicDrawingGestureRecognizer: UIGestureRecognizer {
     
     // overridden to reset internal state when a gesture recognition attempt completes
     override func reset() {
-        bezierPath.removeAllPoints()
+        path = CGMutablePath()
     }
     
 }
