@@ -7,10 +7,23 @@
 
 import UIKit
 
+enum DrawingType: Int {
+    case basic = 0
+    case interpolated = 1
+}
+
 class DrawingView: UIView {
     
-    // drawing path as our virtual ink
-    var drawingPath = CGPath(rect: .zero, transform: nil)
+    // drawing type
+    var drawingType: DrawingType = .basic {
+        didSet {
+            setupDrawingType()
+        }
+    }
+    
+    // drawing paths as our virtual ink
+    var drawingPaths: [CGPath] = []
+    var activePath = CGMutablePath()
     
     // drawing layer instance of CAShapeLayer which is subclass of CALayer
     private var drawingLayer: CAShapeLayer?
@@ -19,7 +32,8 @@ class DrawingView: UIView {
     private let drawingColor: UIColor = .black
     private let lineWidth: CGFloat = 5.0
     
-    let basicDrawingGestureRecognizer = BasicDrawingGestureRecognizer()
+    private let basicDrawingGestureRecognizer = BasicDrawingGestureRecognizer()
+    private let interpolatedDrawingGestureRecognizer = InterpolatedDrawingGestureRecognizer()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -31,15 +45,26 @@ class DrawingView: UIView {
         commonInit()
     }
     
-    func clear() {
-        drawingPath = CGPath(rect: .zero, transform: nil)
+    func finishActivePath() {
+        drawingPaths.append(activePath)
+        activePath = CGMutablePath()
+        
         basicDrawingGestureRecognizer.reset()
+        interpolatedDrawingGestureRecognizer.reset()
+        setNeedsDisplay()
+    }
+    
+    func clear() {
+        drawingPaths.removeAll()
+        activePath = CGMutablePath()
         setNeedsDisplay()
     }
     
     private func commonInit() {
         backgroundColor = .white
+        
         addGestureRecognizer(basicDrawingGestureRecognizer)
+        addGestureRecognizer(interpolatedDrawingGestureRecognizer)
     }
     
     /**
@@ -56,6 +81,14 @@ class DrawingView: UIView {
         drawingLayer.fillColor = UIColor.clear.cgColor
         drawingLayer.strokeColor = drawingColor.cgColor
         drawingLayer.lineWidth = lineWidth
+        
+        let drawingPath = CGMutablePath()
+        drawingPath.addPath(activePath)
+        
+        for path in drawingPaths {
+            drawingPath.addPath(path)
+        }
+        
         drawingLayer.path = drawingPath
         
         // we make sure that the drawing layer assignment
@@ -63,6 +96,19 @@ class DrawingView: UIView {
         if self.drawingLayer == nil {
             self.drawingLayer = drawingLayer
             layer.addSublayer(drawingLayer)
+        }
+    }
+    
+    private func setupDrawingType() {
+        
+        basicDrawingGestureRecognizer.isEnabled = false
+        interpolatedDrawingGestureRecognizer.isEnabled = false
+        
+        switch drawingType {
+        case .basic:
+            basicDrawingGestureRecognizer.isEnabled = true
+        case .interpolated:
+            interpolatedDrawingGestureRecognizer.isEnabled = true
         }
     }
 }

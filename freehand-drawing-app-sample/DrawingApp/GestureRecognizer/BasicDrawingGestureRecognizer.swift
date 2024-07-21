@@ -33,7 +33,7 @@ class BasicDrawingGestureRecognizer: UIGestureRecognizer {
         }
         
         path.addLine(to: point)
-        drawingView.drawingPath = path
+        drawingView.activePath = path
         drawingView.setNeedsDisplay()
     }
     
@@ -45,7 +45,8 @@ class BasicDrawingGestureRecognizer: UIGestureRecognizer {
         }
         
         path.addLine(to: point)
-        drawingView.setNeedsDisplay()
+        drawingView.activePath = path
+        drawingView.finishActivePath()
     }
     
     // sent to the gesture recognizer when a system event (such as an incoming phone call) cancels a touch event

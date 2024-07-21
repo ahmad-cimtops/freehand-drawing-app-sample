@@ -19,6 +19,11 @@ class ViewController: UIViewController {
     }
     
     private func initiateNavigation() {
+        let segmentedControl = UISegmentedControl(items: ["Basic", "Interpolated"])
+        segmentedControl.selectedSegmentIndex = 0
+        segmentedControl.addTarget(self, action: #selector(drawingTypeChanged(_:)), for: .valueChanged)
+        navigationItem.titleView = segmentedControl
+        
         let clearButton = UIBarButtonItem(title: "Clear", style: .plain, target: self, action: #selector(clearDrawingView(_:)))
         navigationItem.rightBarButtonItem = clearButton
     }
@@ -35,10 +40,13 @@ class ViewController: UIViewController {
             drawingView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
         
-        
     }
     
     @objc func clearDrawingView(_ barButton: UIBarButtonItem) {
         drawingView.clear()
+    }
+    
+    @objc func drawingTypeChanged(_ control: UISegmentedControl) {
+        drawingView.drawingType = DrawingType(rawValue: control.selectedSegmentIndex) ?? .basic
     }
 }
