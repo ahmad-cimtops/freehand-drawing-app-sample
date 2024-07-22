@@ -19,7 +19,9 @@ class ViewController: UIViewController {
     }
     
     private func initiateNavigation() {
-        let segmentedControl = UISegmentedControl(items: ["Basic", "Interpolated"])
+        let segmentedControl = UISegmentedControl(items: ["Basic", "Interpolated", "Fountain", "Calligraphy"])
+        segmentedControl.selectedSegmentTintColor = .systemBlue
+        segmentedControl.layer.backgroundColor = UIColor.white.cgColor
         segmentedControl.selectedSegmentIndex = 0
         segmentedControl.addTarget(self, action: #selector(drawingTypeChanged(_:)), for: .valueChanged)
         navigationItem.titleView = segmentedControl

@@ -10,6 +10,8 @@ import UIKit
 enum DrawingType: Int {
     case basic = 0
     case interpolated = 1
+    case fountain = 2
+    case calligraphy = 3
 }
 
 class DrawingView: UIView {
@@ -34,6 +36,7 @@ class DrawingView: UIView {
     
     private let basicDrawingGestureRecognizer = BasicDrawingGestureRecognizer()
     private let interpolatedDrawingGestureRecognizer = InterpolatedDrawingGestureRecognizer()
+    private lazy var strokeGestureRecognizer = StrokeGestureRecognizer(target: self, action: #selector(strokeUpdated(_:)))
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -65,6 +68,7 @@ class DrawingView: UIView {
         
         addGestureRecognizer(basicDrawingGestureRecognizer)
         addGestureRecognizer(interpolatedDrawingGestureRecognizer)
+        addGestureRecognizer(strokeGestureRecognizer)
     }
     
     /**
@@ -78,9 +82,7 @@ class DrawingView: UIView {
         
         // here is our drawing environment, we can start to draw our virtual canvas
         // with virtual ink (CGPath) and set the drawing configuration such as color and thickness
-        drawingLayer.fillColor = UIColor.clear.cgColor
-        drawingLayer.strokeColor = drawingColor.cgColor
-        drawingLayer.lineWidth = lineWidth
+        setup(drawingLayer: drawingLayer)
         
         let drawingPath = CGMutablePath()
         drawingPath.addPath(activePath)
@@ -103,12 +105,52 @@ class DrawingView: UIView {
         
         basicDrawingGestureRecognizer.isEnabled = false
         interpolatedDrawingGestureRecognizer.isEnabled = false
+        strokeGestureRecognizer.isEnabled = false
         
         switch drawingType {
         case .basic:
             basicDrawingGestureRecognizer.isEnabled = true
         case .interpolated:
             interpolatedDrawingGestureRecognizer.isEnabled = true
+        case .fountain, .calligraphy:
+            strokeGestureRecognizer.isEnabled = true
+        }
+    }
+    
+    private func setup(drawingLayer: CAShapeLayer) {
+        switch drawingType {
+        case .basic, .interpolated:
+            drawingLayer.fillColor = UIColor.clear.cgColor
+            drawingLayer.strokeColor = drawingColor.cgColor
+            drawingLayer.lineWidth = lineWidth
+        case .fountain, .calligraphy:
+            drawingLayer.fillColor = drawingColor.cgColor
+            drawingLayer.strokeColor = drawingColor.cgColor
+            drawingLayer.lineWidth = 0
+        }
+    }
+    
+    @objc func strokeUpdated(_ strokeGesture: StrokeGestureRecognizer) {
+        
+        var stroke: Stroke?
+        
+        if strokeGesture.state != .cancelled {
+            stroke = strokeGesture.stroke
+        } else {
+            activePath = CGMutablePath()
+            setNeedsDisplay()
+        }
+        
+        if let stroke = stroke {
+            stroke.drawingType = drawingType
+            activePath = stroke.toCGPath()
+            
+            if strokeGesture.state == .ended {
+                drawingPaths.append(activePath)
+                activePath = CGMutablePath()
+            }
+            
+            setNeedsDisplay()
         }
     }
 }
